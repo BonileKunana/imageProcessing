@@ -1,0 +1,93 @@
+import java.util.*;
+import java.io.*;
+/**
+*java Application that takes items from txt file put the in an Array
+*/
+class AccessArrayApp{
+   Student[] myArr= new Student[5000];
+   Student[] myArr1= new Student[5000];
+   int instru = 0;
+  //open file with scanner
+  public Scanner sc;
+  public  void openfile(){	
+	try{
+	 sc = new Scanner(new File("file1.txt"));
+ 
+    }
+  catch(FileNotFoundException e){
+	 System.out.println("text file not found");     
+    }
+   }
+/**
+
+*method to read items from file and put them in an Array
+
+*/
+   public void readfile(){  
+        int counter = 0;
+        while (sc.hasNext()){
+          String a = sc.next();
+          String b = sc.next();
+          String c = sc.next();
+          myArr[counter] =(new Student( a+" ",b+" ",c));
+          myArr1[counter] = (new Student(a));
+          counter++;
+        }
+        
+    }
+   // close file 
+   public void closefile(){
+     sc.close();
+    }
+/**
+*method to search  for a student in an Array
+*@param Stud_ID, a student number
+*/
+   public void printStudent(String Stud_ID){
+   Student s = new Student(Stud_ID);
+   int counter = 0;
+    for(int i=0; i<5000;i++){
+      instru++;
+      if(s.compareTo(myArr1[i])==0){
+       System.out.println(myArr[i]);
+       counter++;
+       break;
+       } 
+     }   
+  if(counter==0){
+    System.out.println("Access denied!");
+     }
+   } 
+    
+/**
+* method to print all students
+*/
+  public void printAllStudent(){
+    for(int i=0; i<5000; i++){
+      System.out.println(myArr[i]);
+     }
+   }
+   
+ /**
+ *method to print the number of comparisons
+ *
+ */
+  public void instrumantation(){
+   System.out.println("number of comparison is: "+instru);
+  }
+// main Method   
+public static void main(String[] args){
+     AccessArrayApp obj = new AccessArrayApp();
+     obj.openfile();
+     obj.readfile();
+     obj.closefile();
+     if(args.length==0){
+      obj.printAllStudent();
+      }
+      if(args.length>0){
+      obj.printStudent(args[0]);
+      obj.instrumantation();  
+      }       
+    }  
+ }
+       

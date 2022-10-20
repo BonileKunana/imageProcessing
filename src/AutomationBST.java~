@@ -1,0 +1,68 @@
+import java.io.*;
+import java.util.*;
+/**
+* java Application for Automation of output in AccessArrayApp
+*/
+
+class AutomationBST{;  
+  BinarySearchTree<Student> bt;
+  int Flength = 500;
+  //open file with scanner
+  public Scanner sc;
+/**
+*method to search for a student in an Array
+*@param Stud_ID, Student number  
+*/
+  public  void search(String Stud_ID){
+  System.out.println("-------------------------------------------------------------------------------");
+  System.out.println("Automation for AccessBSTApp ");
+  System.out.println("");
+  System.out.println("This program print out the number comparisons made in each Tree");
+  System.out.println("-------------------------------------------------------------------------------");
+        try{
+         for(int i=1; i<11;i++){
+         // open all ten files
+         sc = new Scanner(new File("file"+String.valueOf(i)+".txt"));
+        //put different number of students in  Trees of different sizes 
+         bt = new BinarySearchTree<Student>();
+         int index=0;
+         while (sc.hasNext()){
+          String a = sc.next();
+          String b = sc.next();
+          String c = sc.next();
+          bt.insert(new Student(a,b,c));
+        }
+        /// end of insertion part
+        
+        //search for a student in each tree
+        Student s = new Student(Stud_ID);
+        if(bt.find(s)!=null){
+        System.out.println(bt.find(s).data);
+        }
+       
+        else if(bt.find(s)==null) {
+         System.out.println("Access denied!");
+        }
+        ///end of searching tree
+        
+        Flength = Flength +500; 
+        
+        // print out the number of comparisons for each for each tree
+ 
+  System.out.println("number of comparisons for set_"+String.valueOf(i)+" is: "+bt.instrumantation());
+ 
+      }
+  }
+  
+  catch(FileNotFoundException e){
+         System.out.println("text file not found");
+  }
+    
+ }
+ //main method
+ public static void main(String[] args){
+ AutomationBST obj = new AutomationBST();
+ obj.search(args[0]);
+    }
+  }
+

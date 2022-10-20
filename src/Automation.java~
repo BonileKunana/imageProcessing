@@ -1,0 +1,70 @@
+import java.io.*;
+import java.util.*;
+/**
+* java Application for Automation of output in AccessArrayApp
+*/
+
+class Automation{
+    
+  Student[] myArr;
+  Student[] myArr1;
+  int Flength =500;
+  //open file with scanner
+  public Scanner sc;
+/**
+*method to search for a student in an Array
+*@param Stud_ID, Student number  
+*/
+  public  void search(String Stud_ID){
+        try{
+         for(int i=1; i<11;i++){
+         int instru = 0;
+         // open all ten files
+         sc = new Scanner(new File("file"+String.valueOf(i)+".txt"));
+        //put different number of students in  Arrays of different lengths 
+         int counter = 0;
+         myArr = new Student[Flength];
+         myArr1 = new Student[Flength];
+         while (sc.hasNext()){
+          String a = sc.next();
+          String b = sc.next();
+          String c = sc.next();
+          myArr[counter] =(new Student( a+" ",b+" ",c));
+          myArr1[counter] = (new Student(a));
+          counter++;
+        }
+        //search for a student in each file
+        Student s = new Student(Stud_ID);
+        int counter1 = 0;
+        for(int k=0; k<Flength;k++){
+           instru++;
+           if(s.compareTo(myArr1[k])==0){
+           System.out.println(myArr[k]);
+           counter1++;
+           break;   
+           } 
+          
+        }
+        Flength = Flength +500;   
+        if(counter1==0){
+         System.out.println("Access denied!");
+        }
+        // print out the number of comparisons for each for each Array
+ 
+        System.out.println("number of comparisons for set_"+String.valueOf(i)+" is: "+instru);
+ 
+
+  }
+  
+ }   
+  catch(FileNotFoundException e){
+         System.out.println("text file not found");
+  }
+    
+ }
+ public static void main(String[] args){
+ Automation obj = new Automation();
+    obj.search(args[0]);
+  }
+
+}

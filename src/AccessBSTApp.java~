@@ -1,0 +1,85 @@
+import java.util.*;
+import java.io.*;
+
+/**
+*class to take items from a file and put them in a tree
+*/
+
+public class AccessBSTApp{
+
+  public Scanner sc;
+  // create a Binarytree of students
+  BinarySearchTree<Student> bt = new BinarySearchTree<Student> ();
+  
+/**
+*method to open file
+*/
+  public  void openfile()
+  {      
+    try{
+     sc = new Scanner(new File("oklist.txt"));
+    }
+    catch(FileNotFoundException e){
+     System.out.println("file not found");     
+    }
+  }
+ 
+  /**
+  *method to read file
+  */
+   public void readfile()
+   {
+        while (sc.hasNext()){
+          String a = sc.next();
+          String b = sc.next();
+          String c = sc.next();
+          bt.insert(new Student(a,b,c)); 
+        }
+   }
+   
+   // close file 
+   public void closefile()
+   {
+    sc.close();
+   }
+   
+/**
+* method to print all Student  
+*/
+   public void printAll()
+   {
+    bt.levelOrder ();
+   }
+   
+/**
+*method for searching for a student in a tree
+*@param Stud_ID, a student number 
+*/
+   public void printStudent(String Stud_ID){
+   Student s = new Student(Stud_ID);
+    if(bt.find(s)!=null){
+       System.out.println(bt.find(s).data);
+      }
+     else{System.out.println("Access denied!");}
+    }
+    // count the number of comparisons when searching for a students
+    public void instrumantation(){
+    System.out.println("number of comparisons is: "+bt.instrumantation());
+    }
+   // main method
+   public static void main( String[] args )
+  
+   {
+    AccessBSTApp obj = new AccessBSTApp();
+    obj.openfile();
+    obj.readfile();
+    obj.closefile();
+    if(args.length<=0){
+    obj.printAll();}
+    if(args.length>0){
+     obj.printStudent(args[0]);
+     obj.instrumantation();
+    }
+   }
+   
+}

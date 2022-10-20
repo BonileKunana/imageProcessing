@@ -1,0 +1,20 @@
+class Student implements Comparable<Student>{
+   String Student_Num;
+   String Fname;
+   String Lname;
+   
+   public Student(String s,String f, String l){
+     Student_Num = s;
+     Fname = f;
+     Lname = l;
+    }
+    
+  public Student(String s){ Student_Num = s;}
+    
+  public String toString(){ return Student_Num+" "+Fname+" "+Lname; }
+   
+  public String getStudentNum(){ return Student_Num;}
+  public int compareTo(Student other){
+   return String.valueOf(Student_Num).compareTo(String.valueOf(other.Student_Num));
+  }  
+}
